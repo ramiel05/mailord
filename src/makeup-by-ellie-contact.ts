@@ -8,7 +8,7 @@ interface Body {
   eventDate: string;
   service: string; // TODO union
   totalPeopleMakeup: number;
-  totalpeopleHair: number;
+  totalPeopleHair: number;
   timeToFinishBy: string;
   addressForService: string;
   additionalInformation: string;
@@ -22,7 +22,7 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     eventDate,
     service,
     totalPeopleMakeup,
-    totalpeopleHair,
+    totalPeopleHair,
     timeToFinishBy,
     addressForService,
     additionalInformation,
@@ -35,7 +35,7 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     eventDate,
     service,
     totalPeopleMakeup,
-    totalpeopleHair,
+    totalPeopleHair,
     timeToFinishBy,
     addressForService,
     additionalInformation,
@@ -48,7 +48,7 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     !eventDate ||
     !service ||
     !totalPeopleMakeup ||
-    !totalpeopleHair ||
+    !totalPeopleHair ||
     !timeToFinishBy ||
     !addressForService
   ) {
@@ -62,7 +62,7 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     eventDate,
     service,
     totalPeopleMakeup,
-    totalpeopleHair,
+    totalPeopleHair,
     timeToFinishBy,
     addressForService,
     additionalInformation,
@@ -71,6 +71,7 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
   try {
     await sendMail({ fromName: name, fromEmail: email, message });
     res.status(200).json({ success: true });
+    console.log("Email sent");
   } catch (err) {
     console.error("Email sending failed:", err);
     res.status(500).json({ error: "Failed to send email." });
