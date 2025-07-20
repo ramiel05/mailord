@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import { sendMail } from "./mailer";
 import { makeupByEllieContact } from "./makeup-by-ellie-contact";
 
 dotenv.config();
