@@ -6,12 +6,16 @@ interface Body {
   phone: string;
   email: string;
   eventDate: string;
-  service: string; // TODO union
   totalPeopleMakeup: number;
-  totalPeopleHair: number;
+  whoRequiresMakeup: string;
+  ceremonyTime: string;
+  ceremonyVenue: string;
+  receptionTime: string;
+  receptionVenue: string;
+  photographerStartTime: string;
+  gettingReadyLocation: string;
   timeToFinishBy: string;
-  addressForService: string;
-  additionalInformation: string;
+  notes?: string;
 }
 
 export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Response) => {
@@ -20,12 +24,16 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     phone,
     email,
     eventDate,
-    service,
     totalPeopleMakeup,
-    totalPeopleHair,
+    whoRequiresMakeup,
+    ceremonyTime,
+    ceremonyVenue,
+    receptionTime,
+    receptionVenue,
+    photographerStartTime,
+    gettingReadyLocation,
     timeToFinishBy,
-    addressForService,
-    additionalInformation,
+    notes,
   } = req.body;
 
   console.log({
@@ -33,12 +41,16 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     phone,
     email,
     eventDate,
-    service,
     totalPeopleMakeup,
-    totalPeopleHair,
+    whoRequiresMakeup,
+    ceremonyTime,
+    ceremonyVenue,
+    receptionTime,
+    receptionVenue,
+    photographerStartTime,
+    gettingReadyLocation,
     timeToFinishBy,
-    addressForService,
-    additionalInformation,
+    notes,
   });
 
   if (
@@ -46,13 +58,17 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     !phone ||
     !email ||
     !eventDate ||
-    !service ||
     !totalPeopleMakeup ||
-    !totalPeopleHair ||
-    !timeToFinishBy ||
-    !addressForService
+    !whoRequiresMakeup ||
+    !ceremonyTime ||
+    !ceremonyVenue ||
+    !receptionTime ||
+    !receptionVenue ||
+    !photographerStartTime ||
+    !gettingReadyLocation ||
+    !timeToFinishBy
   ) {
-    return res.status(400).json({ error: "All fields are required." });
+    return res.status(400).json({ error: "Some required fields are missing." });
   }
 
   const message = JSON.stringify({
@@ -60,12 +76,16 @@ export const makeupByEllieContact = async (req: Request<any, any, Body>, res: Re
     phone,
     email,
     eventDate,
-    service,
     totalPeopleMakeup,
-    totalPeopleHair,
+    whoRequiresMakeup,
+    ceremonyTime,
+    ceremonyVenue,
+    receptionTime,
+    receptionVenue,
+    photographerStartTime,
+    gettingReadyLocation,
     timeToFinishBy,
-    addressForService,
-    additionalInformation,
+    notes,
   });
 
   try {
