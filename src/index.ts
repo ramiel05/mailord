@@ -11,6 +11,10 @@ app.get("/", (_, res) => {
   res.send("Mailer is running");
 });
 
+app.get("/health", (_, res) => {
+  res.send("So healthy right now");
+});
+
 app.post("/makeup-by-ellie-contact", makeupByEllieContact);
 
 const port = process.env.PORT || 3000;
