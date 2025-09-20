@@ -21,6 +21,15 @@ const parseMessage = (message: string) => {
   }
 };
 
+const escapeHtml = (unsafe: string): string => {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
 export async function sendMail({
   fromName,
   fromEmail,
@@ -38,11 +47,12 @@ export async function sendMail({
       <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
         ${Object.entries(parsed)
           .map(([key, value]) => {
-            const label = key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+            const safeLabel = escapeHtml(key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase()));
+            const safeValue = value ? escapeHtml(String(value)) : "<i>(not provided)</i>";
             return `
               <tr>
-                <td style="font-weight: bold; vertical-align: top;">${label}:</td>
-                <td>${value || "<i>(not provided)</i>"}</td>
+                <td style="font-weight: bold; vertical-align: top;">${safeLabel}:</td>
+                <td>${safeValue}</td>
               </tr>
             `;
           })
