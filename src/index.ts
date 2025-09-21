@@ -8,7 +8,19 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGIN,
+    origin: (origin, callback) => {
+      console.log("CORS request from origin:", origin);
+      console.log("ALLOWED_ORIGIN env var:", process.env.ALLOWED_ORIGIN);
+
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (process.env.ALLOWED_ORIGIN && origin !== process.env.ALLOWED_ORIGIN) {
+        return callback(new Error("Not allowed by CORS"));
+      }
+
+      callback(null, true);
+    },
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
